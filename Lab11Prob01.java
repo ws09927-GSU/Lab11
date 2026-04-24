@@ -1,3 +1,12 @@
+import java.io.DataInputStream;
+import java.io.DataOutput;
+import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 /**
  * File: Lab11Prob01.java
  * Class: CSCI 1302
@@ -13,7 +22,23 @@
 public class Lab11Prob01 {
 	public static void main(String[] args) {
 		
-		
+		try (DataInputStream fileinput = new DataInputStream(new FileInputStream("src/people.dat"));
+				DataOutputStream fileOutput = new DataOutputStream(new FileOutputStream("people-copy.dat"))) {
+			
+			while (true) {
+				fileOutput.writeInt(fileinput.readInt());
+				fileOutput.writeUTF(fileinput.readUTF());
+				fileOutput.writeUTF(fileinput.readUTF());
+				fileOutput.writeInt(fileinput.readInt());
+				fileOutput.writeDouble(fileinput.readDouble());
+			}
+			
+			
+			
+		} catch (IOException e) {
+			System.out.println("File Processed");
+			//e.printStackTrace();
+		}
 		
 	}
 }
